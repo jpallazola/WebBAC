@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BAC Calculator</title>
+    <link rel="stylesheet" href="css/TestOneBACPallazolaJulia.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+</head>
+<body>
+
+<div class="container">
+	<!-- Standard Drink Information and Graphic -->
+<div class="left-box" id="leftBox">
+    <div class="blue-box">
+        <h2 class = "title">What is a Standard Drink?</h2>
+        <ul class="drink-types">
+            <li>
+                <div class="drink-size">
+                    <span>12 fl. oz.</span>
+                    <span>8-9 fl. oz.</span>
+                    <span>5 fl. oz.</span>
+                    <span>1.5 fl. oz.</span>
+                </div>
+                
+                <div class="drink-name">
+                    <span>Regular Beer</span>
+                    <span>Malt Beverage</span>
+                    <span>Table Wine</span>
+                    <span>Distilled Spirit</span>
+                </div>
+                
+                <div class="drink-icons">
+                    <i class="fas fa-beer"></i>
+                    <i class="fas fa-glass-whiskey"></i>
+                    <i class="fas fa-wine-glass"></i>
+                    <i class="fas fa-glass-whiskey"></i>
+                </div>
+                
+                <div class="drink-descriptions">
+                    <span>Approx 5% alcohol</span>
+                    <span>Approx 7% alcohol</span>
+                    <span>Approx 12% alcohol</span>
+                    <span>Approx 40% alcohol</span>
+                </div>
+            </li>
+        </ul>
+		<hr></hr>
+		<div class = "extra-info">
+			Each beverage portrayed above represents one standard drink (or one alcoholic drink equivalent), defined in the United States as any beverage containing 0.6 fl. oz. or 14 grams of pure alcohol.
+			The percentage of pure alcohol, expressed here as alcohol by volume (ABV), varies within and across beverage types.
+			Although the standard drink amounts are helpful for the following health guidelines, they may not reflect customary serving sizes.
+		</div>
+    </div>
+	<div>
+		<button id="BACCalculator">BAC Calculator</button>
+	</div>
+	
+		<div id="bac-output" class="output-box"></div>
+		<div id="bacDescription"></div>
+		<div id="bacEffect"></div>
+		
+</div>
+
+
+
+    <div class="right-box" id="rightBox" style="display: none;">
+
+
+        <!-- Content for the right box -->
+		<div>
+			<h2> Calculate BAC </h2>
+		</div>
+        
+        <!-- Radio buttons for pounds and kilograms -->
+        <div class="radio-container">
+	        <label for="weightInput">Enter Weight: </label>
+			<input type="number" id="weightInput" name="weightInput">
+            <input type="radio" id="lbsRadio" name="unit" value="lbs" onclick="setUnit(this)" checked> 
+            <label for="lbsRadio">Pounds</label>
+
+            <input type="radio" id="kgRadio" name="unit" value="kg" onclick="setUnit(this)"> 
+            <label for="kgRadio">Kilograms</label>
+        </div>
+
+        <!-- Radio buttons for male and female -->
+        <div class="radio-container">
+			<h4> Gender: </h4>
+            <input type="radio" id="maleRadio" name="gender" value="male" onclick="calculateRatio()"> 
+            <label for="maleRadio">Male</label>
+
+            <input type="radio" id="femaleRadio" name="gender" value="female" onclick="calculateRatio()"> 
+            <label for="femaleRadio">Female</label>
+        </div>
+
+        <!-- Other input fields and buttons for BAC calculation -->
+        <label for="hoursInput">Enter Hours Since Last Drink:</label>
+        <input type="number" id="hoursInput" name="hoursInput" min="0">
+		<br>
+        <label for="minutesInput">Enter Minutes Since Last Drink:</label>
+        <input type="number" id="minutesInput" name="minutesInput" min="0" max="59">
+
+        <div>
+            <label for="numDrinksInput">Enter Number of Drinks:</label>
+            <input type="number" id="numDrinksInput" name="numDrinksInput" min="0">
+        </div>
+		
+		<div id="finalBAC"></div>
+		<button id="calculateBAC" onclick="displayBAC()">Calculate Final BAC</button>
+		
+<div class="drink-summary">
+    <h3>Drink Types:</h3>
+    <div class="drink-choice">
+        <label for="regular-beer">Regular Beer:</label>
+        <select id="regular-beer" name="regular-beer" onchange="displayDrinkImages()">
+            <option value="0" selected>0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+		<div class="drink-images-container">
+        <div class="drink-images" id="regular-beer-images"></div></div>
+    </div>
+
+    <div class="drink-choice">
+        <label for="malt-beverage">Malt Beverage:</label>
+        <select id="malt-beverage" name="malt-beverage" onchange="displayDrinkImages()">
+            <option value="0" selected>0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+		<div class="drink-images-container">
+        <div class="drink-images" id="malt-beverage-images"></div></div>
+    </div>
+
+    <div class="drink-choice">
+        <label for="table-wine">Table Wine:</label>
+        <select id="table-wine" name="table-wine" onchange="displayDrinkImages()">
+            <option value="0" selected>0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+		<div class="drink-images-container">
+        <div class="drink-images" id="table-wine-images"></div></div>
+    </div>
+
+    <div class="drink-choice">
+        <label for="distilled-spirit">Distilled Spirit:</label>
+        <select id="distilled-spirit" name="distilled-spirit" onchange="displayDrinkImages()">
+            <option value="0" selected>0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+		<div class="drink-images-container">
+        <div class="drink-images" id="distilled-spirit-images"></div></div>
+    </div>
+	    <div><button id="calculate-button">Calculate Ounces</button></div>
+    <div class="total-ounces-info" id="total-ounces">Total Ounces: 0</div>
+</div>
+
+		</div>
+		
+    </div>
+</div>
+
+<script src="js/TestOneBACPallazolaJulia.js"></script>
+
+</body>
+</html>
